@@ -7,19 +7,24 @@
   "observability": {
     "enabled": true
   },
+  "ai": { "binding": "AI" },
   "vars": {},
   "durable_objects": {
     "bindings": [
       {
         "name": "REALTIME_DURABLE_OBJECT",
         "class_name": "RealtimeDurableObject"
+      },
+      {
+        "name": "CHAT_DURABLE_OBJECT",
+        "class_name": "ChatDurableObject"
       }
     ]
   },
   "migrations": [
     {
       "tag": "v1",
-      "new_classes": ["RealtimeDurableObject"]
+      "new_classes": ["RealtimeDurableObject", "ChatDurableObject"]
     }
   ]
 }
