@@ -12,7 +12,7 @@ export async function Chat() {
       <a href="/" className="text-blue-600 underline text-base absolute top-0 right-0 pt-4 pr-3">
         Home
       </a>
-      <h1 className="text-xl font-bold my-2">RedwoodSDK {isRSC ? 'RSC' : 'WIP Client'} Chat</h1>
+      <h1 className="text-xl font-bold my-2">RedwoodSDK {isRSC ? 'RSC' : 'Client'} Chat</h1>
       <div className="w-full text-left">
         {isRSC ? (
           <>

@@ -7,7 +7,7 @@ export function Home() {
       RSC Chat
         </a>
         <a href="chat-client" className="text-blue-600 p-2 underline mb-8 text-base">
-          WIP Client Chat
+          Client Chat
         </a>
         <a href="time" className="text-blue-600 p-2 underline mb-8 text-base">
           Time
