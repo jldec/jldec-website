@@ -7,6 +7,7 @@ import { renderRealtimeClients } from 'rwsdk/realtime/worker'
 
 const CHAT_ID = 'agents-chat'
 const REALTIME_KEY = 'rwsdk-realtime-chat'
+const WEBSOCKET_AGENT_NAME = 'rwsdk-chat-client'
 
 export async function newMessage(prompt: string) {
   const message: Message = {
@@ -14,30 +15,57 @@ export async function newMessage(prompt: string) {
     role: 'user',
     content: prompt
   }
-  const chat = resolve(CHAT_ID)
-  await chat.setMessage(message)
-  console.log('newMessage', message.id)
-  await askAI(chat)
+  const chatStore = resolveChatStore(CHAT_ID)
+  await chatStore.setMessage(message)
+  await syncRealtimeClients()
+  await syncWebsocketAgentClients(WEBSOCKET_AGENT_NAME)
+  await askAI(chatStore)
   return message.id
 }
 
 export async function getMessages() {
-  const chat = resolve(CHAT_ID)
-  return chat.getMessages()
+  const chatStore = resolveChatStore(CHAT_ID)
+  return chatStore.getMessages()
 }
 
 export async function clearMessages() {
-  const chat = resolve(CHAT_ID)
-  await chat.clearMessages()
+  const chatStore = resolveChatStore(CHAT_ID)
+  await chatStore.clearMessages()
+  await syncRealtimeClients()
+  await syncWebsocketAgentClients(WEBSOCKET_AGENT_NAME)
 }
 
-function resolve(chatID: string) {
+function resolveChatStore(chatID: string) {
   const id: DurableObjectId = env.CHAT_DURABLE_OBJECT.idFromName(chatID)
   return env.CHAT_DURABLE_OBJECT.get(id)
 }
 
-async function askAI(chat: DurableObjectStub<ChatDurableObject>) {
-  const messages = await chat.getMessages()
+function resolveWebsocketAgent(agentName: string) {
+  const id: DurableObjectId = env.WEBSOCKET_AGENT.idFromName(agentName)
+  return env.WEBSOCKET_AGENT.get(id)
+}
+
+async function syncWebsocketAgentClients(agentName: string) {
+  const agent = resolveWebsocketAgent(agentName)
+  await agent.bumpClients()
+}
+
+async function syncRealtimeClients() {
+  // TODO: throttle
+  await renderRealtimeClients({
+    durableObjectNamespace: env.REALTIME_DURABLE_OBJECT,
+    key: REALTIME_KEY
+  })
+}
+
+async function syncMessage(message: Message) {
+  await syncRealtimeClients()
+  const agent = resolveWebsocketAgent(WEBSOCKET_AGENT_NAME)
+  await agent.syncMessage(message)
+}
+
+async function askAI(chatStore: DurableObjectStub<ChatDurableObject>) {
+  const messages = await chatStore.getMessages()
   const systemMessage = {
     role: 'system',
     content: 'You are a helpful and delightful assistant'
@@ -66,13 +94,8 @@ async function askAI(chat: DurableObjectStub<ChatDurableObject>) {
     for await (const event of eventStream) {
       if (event.data !== '[DONE]') {
         aiMessage.content += JSON.parse(event.data).response
-        await chat.setMessage(aiMessage)
-        // TODO: throttle?
-        await renderRealtimeClients({
-          durableObjectNamespace: env.REALTIME_DURABLE_OBJECT,
-          key: REALTIME_KEY
-        })
-        console.log('aiMessage updated')
+        await chatStore.setMessage(aiMessage)
+        syncMessage(aiMessage)
       } else {
         break
       }
