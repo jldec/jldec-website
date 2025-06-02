@@ -6,7 +6,7 @@ Two small implementations of streaming AI chat -- deployed at https://agents-cha
 
 Both persist messages in the same vanilla durable object, in a JSON array in one KV value.
 
-The RSC implementation feels slightly slower for the following reasons:
+The RSC implementation is [simpler](https://github.com/jldec/agents-chat/blob/main/src/app/chat-rsc/ChatRSC.tsx), but also slower for the following reasons:
 
 1. The RSC-chat MessageList component loads data directly from the durable object API. This means that the chat store has to be updated with each stream chunk, before triggering a new server-side render. This is not required for the agent-chat, which broadcasts single-message updates directly to clients via the agent websocket, so it only needs to call the store to persist the AI response at the end of the stream. This difference can probably be mitigated by changing the implementation in this repo to load messages from worker memory during streaming.  
 
@@ -25,7 +25,7 @@ The idea to try 3 architectures came from the same [rwsdk discord](https://disco
 > 2. live-stream new messages (e.g. AI responses) to all active clients.,
 > 3. return older messages only when requested by a specific client.,
 >
-> Architectural choices:
+> ### Architectural choices:
 > #### 1. custom JSON over websockets,
 > Instead of using the rwsdk realtime feature, send messages (and message chunks when streaming) via JSON over websockets like cloudflare/agents. One way to build this would be with the useAgentChat react hook from the same library. Rendering happens client-side.
 > #### 2. RSCs with rwsdk and realtime,
