@@ -6,7 +6,7 @@ Two small implementations of streaming AI chat deployed at https://agents-chat.j
 
 Both persist messages in the same vanilla durable object, in a JSON array in one KV value.
 
-### The RSC implementation feel slightly slower for the following reasons:
+The RSC implementation feels slightly slower for the following reasons:
 
 1. The RSC-chat MessageList component loads data directly from the durable object API. This means that the chat store has to be updated with each stream chunk, before triggering a new server-side render. This is not required for the agent-chat, which broadcasts single-message updates directly to clients via the agent websocket, so it only needs to call the store to persist the AI response at the end of the stream.
 
