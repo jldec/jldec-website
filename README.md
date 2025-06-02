@@ -1,5 +1,5 @@
 # RedwoodSDK agents chat with RSC
-Two small implementations of streaming AI chat deployed at https://agents-chat.jldec.workers.dev/. 
+Two small implementations of streaming AI chat -- deployed at https://agents-chat.jldec.workers.dev/. 
 
 1. [RSC Chat](https://agents-chat.jldec.workers.dev/chat-rsc) uses realtime websocket-based RSC updates implemented by [RedwoodSDK](https://rwsdk.com/).
 2. [Agent Chat](https://agents-chat.jldec.workers.dev/chat-rsc) sends JSON over websockets implemented by Cloudflare [agents](https://developers.cloudflare.com/agents/).
