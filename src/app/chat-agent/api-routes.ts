@@ -4,6 +4,7 @@ import type { Message } from '../chat/ChatStore'
 import { askAI } from '../chat/askAI'
 import { route } from 'rwsdk/router'
 import type { RequestInfo } from 'rwsdk/worker'
+import { routeAgentRequest } from 'agents'
 import type { WebsocketAgent } from './WebsocketAgent'
 
 async function GET() {
@@ -41,6 +42,10 @@ async function POST(request: Request) {
 }
 
 export const chatAgentApiRoutes = [
+  // https://developers.cloudflare.com/agents/api-reference/calling-agents/
+  route(`/agents/${env.WEBSOCKET_AGENT_PATH}/${env.WEBSOCKET_AGENT_NAME}`, async ({ request }) => {
+    return (await routeAgentRequest(request, env)) || Response.json({ msg: 'no agent here' }, { status: 404 })
+  }),
   route('/api/chat-agent', (requestInfo: RequestInfo) => {
     switch (requestInfo.request.method) {
       case 'GET':
