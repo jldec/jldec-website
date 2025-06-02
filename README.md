@@ -16,7 +16,7 @@ Both persist messages in the same vanilla durable object, in a JSON array in one
 Add another implementation using a sync engine like [Zero](https://zero.rocicorp.dev/) or [TinyBase](https://tinybase.org/) or [Livestore](https://livestore.dev/).
 
 ## Why?
-I'm exploring how to build multi-user AI chat because I expect that this will become the universal UI for humans and agents to work together.
+I'm exploring how to build multi-user AI chat because I expect this to become the universal UI for humans and agents to work together.
 The idea to try 3 architectures came from the same [rwsdk discord](https://discord.com/channels/679514959968993311/1374715298636238968/1376269189802627112) thread.
 
 > ![Screenshot 2025-06-02 at 21 06 37](https://github.com/user-attachments/assets/2545674b-1535-4759-b332-151014bc12ea)
