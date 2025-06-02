@@ -25,7 +25,7 @@ The idea to try 3 architectures came from the same [rwsdk discord](https://disco
 > 2. live-stream new messages (e.g. AI responses) to all active clients.,
 > 3. return older messages only when requested by a specific client.,
 >
-> I think I have 3 architectural choices:
+> Architectural choices:
 > #### 1. custom JSON over websockets,
 > Instead of using the rwsdk realtime feature, send messages (and message chunks when streaming) via JSON over websockets like cloudflare/agents. One way to build this would be with the useAgentChat react hook from the same library. Rendering happens client-side.
 > #### 2. RSCs with rwsdk and realtime,
