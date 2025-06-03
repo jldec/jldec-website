@@ -1,10 +1,15 @@
 # RedwoodSDK agents chat with RSC
 Two small implementations of streaming AI chat -- deployed at https://agents-chat.jldec.workers.dev/. 
 
-1. [RSC Chat](https://agents-chat.jldec.workers.dev/chat-rsc) uses realtime websocket-based RSC updates implemented by [RedwoodSDK](https://rwsdk.com/).
-2. [Agent Chat](https://agents-chat.jldec.workers.dev/chat-agent) sends JSON over websockets implemented by Cloudflare [agents](https://developers.cloudflare.com/agents/).
+[RSC Chat](https://agents-chat.jldec.workers.dev/chat-rsc) uses realtime websocket-based RSC updates implemented by [RedwoodSDK](https://rwsdk.com/).  
 
-Both persist messages in the same vanilla durable object, in a JSON array in one KV value.
+![RSC-code](https://github.com/user-attachments/assets/13de3b96-2ad4-49ba-bed5-d03dd24d8248)
+
+[Agent Chat](https://agents-chat.jldec.workers.dev/chat-agent) sends JSON over websockets implemented by Cloudflare [agents](https://developers.cloudflare.com/agents/).  
+
+<img width="1107" alt="client-code" src="https://github.com/user-attachments/assets/e5eefe7b-9b18-4ccc-9d7f-aa37f00726d3" />
+   
+Both implementations persist messages in the same vanilla durable object, in a JSON array in one KV value.
 
 The RSC implementation is [simpler](https://github.com/jldec/agents-chat/blob/main/src/app/chat-rsc/ChatRSC.tsx), but also slower for the following reasons:
 
