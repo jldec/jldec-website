@@ -36,7 +36,9 @@ The idea to try 3 architectures came from the same [rwsdk discord](https://disco
 > #### 2. RSCs with rwsdk and realtime,
 > Use rwsdk with server components for realtime updates to send the first page of messages and keep it updated as it changes. Call a separate api route (or server-function) to fetch earlier messages when needed. This solution will be more chatty (1 page of messages on the wire for each realtime update), but probably ok. There is also some complexity (I haven't tried yet) to blend RSCs with the earlier messages, but I think it's doable with some experimentation.
 > #### 3. sync data,
-> Use a generic sync engine like tinybase to sync state between the durable objects and browsers, and render messages on the client This has the benefit of built-in support for client-persistence (local caching) and also syncs just one value at a time (not the whole page like rwsdk), but it adds some complexity and some constraints to how things are represented on the server side. 
+> Use a generic sync engine like tinybase to sync state between the durable objects and browsers, and render messages on the client This has the benefit of built-in support for client-persistence (local caching) and also syncs just one value at a time (not the whole page like rwsdk), but it adds some complexity and some constraints to how things are represented on the server side.
+>
+> all 3 options use react, websockets, and durable objects 🙂
 
 ### Further Reading
 - [RedwoodSDK Docs](https://docs.rwsdk.com/)
