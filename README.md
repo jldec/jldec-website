@@ -9,7 +9,7 @@ Two small implementations of streaming AI chat -- deployed at https://agents-cha
 
 <img width="1107" alt="client-code" src="https://github.com/user-attachments/assets/8aac02b7-d820-445e-9a90-d78924928a0d" />
 
-Both implementations persist messages in the same vanilla durable object, in a JSON array in one KV value.
+Both implementations persist messages in the same [vanilla durable object](https://github.com/jldec/agents-chat/blob/main/src/app/chat/ChatStore.ts), in a JSON array in one KV value.
 
 The RSC implementation is [simpler](https://github.com/jldec/agents-chat/blob/main/src/app/chat-rsc/ChatRSC.tsx), but also slower for the following reasons:
 
