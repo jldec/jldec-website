@@ -11,6 +11,14 @@ export function ChatAgent() {
   const [messages, setMessages] = useState<Message[]>([])
   const [bump, setBump] = useState(0)
 
+  async function fetchMessages() {
+    setMessages(await getMessages() as Message[])
+  }
+
+  useEffect(() => {
+    fetchMessages()
+  }, [bump])
+
   const connection = useAgent({
     agent: 'websocket-agent',
     name: 'rwsdk-chat-client',
@@ -39,14 +47,6 @@ export function ChatAgent() {
     onOpen: () => console.log('Connection established'),
     onClose: () => console.log('Connection closed')
   })
-
-  useEffect(() => {
-    async function fetchMessages() {
-      const msgs = await getMessages()
-      setMessages(msgs as Message[])
-    }
-    fetchMessages()
-  }, [bump])
 
   return (
     <ChatLayout title="RedwoodSDK Agent Chat">
