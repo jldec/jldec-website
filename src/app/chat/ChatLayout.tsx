@@ -5,7 +5,7 @@ interface ChatLayoutProps {
 
 export function ChatLayout({ title, children }: ChatLayoutProps) {
   return (
-    <div className="text-sm p-2 relative max-w-3xl mx-auto">
+    <div className="text-sm p-2 relative max-w-2xl mx-auto">
       <a href="/" className="text-blue-600 underline text-base absolute top-0 right-0 pt-4 pr-3">
         Home
       </a>
