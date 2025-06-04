@@ -34,11 +34,11 @@ export function MessageInput({ onSubmit, onClear }: MessageInputProps) {
     await onClear()
   }
   return (
-    <form onSubmit={submit} className="mt-2 mb-[10vh] flex flex-row gap-2 max-w-2xl">
+    <form onSubmit={submit} className="mt-2 mb-[10vh] flex flex-row gap-2">
       <input
         ref={inputRef}
         onChange={(e) => setInput(e.target.value)}
-        className="flex-grow border-1 border-gray-700 p-2"
+        className="flex-grow border-2 border-gray-400 p-2 w-full rounded-md"
         value={input}
       />
       <button type="submit" className="p-2 bg-blue-500 text-white rounded-md">
