@@ -10,7 +10,7 @@ export function Home() {
           Agent Chat
         </a>
         <a href="chat-tinybase" className="text-blue-600 p-2 underline mb-8 text-base">
-          Tinybase Chat
+          TinyBase Chat
         </a>
         <a href="time" className="text-blue-600 p-2 underline mb-8 text-base">
           Time
