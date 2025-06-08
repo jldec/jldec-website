@@ -1,24 +1,38 @@
 # Multi-user AI chat with RedwoodSDK RSC and Cloudflare agents
-Two small implementations of multi-user streaming AI chat -- deployed at https://agents-chat.jldec.workers.dev/. 
+Three implementations of multi-user streaming AI chat -- deployed at https://agents-chat.jldec.workers.dev/. 
 
-[RSC Chat](https://agents-chat.jldec.workers.dev/chat-rsc) uses realtime websocket-based RSC updates implemented by [RedwoodSDK](https://rwsdk.com/).  (actual code)
+### [RSC Chat](https://agents-chat.jldec.workers.dev/chat-rsc)
+Uses realtime websocket-based RSC updates implemented by [RedwoodSDK](https://rwsdk.com/).  (actual code)
 
 ![RSC-code](https://github.com/user-attachments/assets/13de3b96-2ad4-49ba-bed5-d03dd24d8248)
 
-[Agent Chat](https://agents-chat.jldec.workers.dev/chat-agent) sends JSON over websockets implemented by Cloudflare [agents](https://developers.cloudflare.com/agents/).  (code simplified for readability)
+### [Agent Chat](https://agents-chat.jldec.workers.dev/chat-agent)
+Sends JSON over websockets implemented by Cloudflare [agents](https://developers.cloudflare.com/agents/).  (code simplified for readability)
 
 <img width="1107" alt="client-code" src="https://github.com/user-attachments/assets/8aac02b7-d820-445e-9a90-d78924928a0d" />
 
-Both implementations persist messages in the same [vanilla durable object](https://github.com/jldec/agents-chat/blob/main/src/app/chat/ChatStore.ts), in a JSON array in one KV value.
+### [TinyBase Chat](https://agents-chat.jldec.workers.dev/chat-tinybase)
+Persists the same store on each client and in durable objects.   
 
-The RSC implementation is [simpler](https://github.com/jldec/agents-chat/blob/main/src/app/chat-rsc/ChatRSC.tsx), but also slower for the following reasons:
+![Screenshot 2025-06-08 at 20 55 06](https://github.com/user-attachments/assets/e5b59276-6f03-4259-adf4-84ae2ed78ca7)
+
+### First impressions
+
+RSC realtime chat and store sync both feel nice, but maybe a little immature. 
+
+With RSCs, there is little control over what is synced. Server functions are tempting, but they also hide the underlying HTTP calls. 
+
+TinyBase store sync is happening between memory and persistance on every node, and between nodes. In each case, the configuration apis are slightly different. 
+
+React keeps DOM updates hassle-free, but component functions and hooks make the code somewhat difficult to understand. 
+
+### Perf
+
+The RSC implementation is currently a bit slower for the following reasons:
 
 1. The RSC-chat MessageList component loads data directly from the durable object API. This means that the chat store has to be updated with each stream chunk, before triggering a new server-side render. This is not required for the agent-chat, which broadcasts single-message updates directly to clients via the agent websocket, so it only needs to call the store to persist the AI response at the end of the stream. This difference can probably be mitigated by changing the implementation in this repo to load messages from worker memory during streaming.  
 
 2. When RSC-chat realtime updates are rendered, all the RSCs for the page are sent to clients (there is no server-side diffing). This means that payloads for streaming updates are larger, even if clients only update one small part of their DOM. Discussion about this question in the [rwsdk discord](https://discord.com/channels/679514959968993311/1374715298636238968/1376288266789064734). Fixing this requires changes to RedwoodSDK/RSC internals.
-
-### Next
-Add another implementation using a sync engine like [Zero](https://zero.rocicorp.dev/) or [TinyBase](https://tinybase.org/) or [Livestore](https://livestore.dev/).
 
 ## Why?
 I'm exploring how to build multi-user AI chat because I expect this to become the universal UI for humans and agents to work together.
