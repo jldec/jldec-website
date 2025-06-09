@@ -15,20 +15,20 @@ export async function* streamToText(stream: ReadableStream<Uint8Array>): AsyncIt
         break
       }
       buffer += decoder.decode(value, { stream: true })
-      const lines = buffer.split('\n')
-      buffer = lines.pop() || '' // Keep incomplete line in buffer
+      const lines = buffer.split('\n') // assume no newlines in data
+      buffer = lines.pop() || '' // last line may be incomplete
 
       for (const line of lines) {
         if (line.startsWith('data: ')) {
           const data = line.slice(6).trim()
           if (data === '[DONE]') {
-            return // End iteration
+            return // we're done
           }
           try {
             const parsed = JSON.parse(data)
             const text = parsed.response || ''
             if (text) {
-              yield text // Yield the text string
+              yield text
             }
           } catch (e) {
             console.error('Error parsing SSE data:', e)
