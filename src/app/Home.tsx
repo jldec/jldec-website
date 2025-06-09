@@ -12,13 +12,15 @@ export function Home() {
         <a href="chat-tinybase" className="text-blue-600 p-2 underline mb-8 text-base">
           TinyBase Chat
         </a>
+      </div>
+      <div className="flex flex-row gap-2">
+        <a href="https://github.com/jldec/agents-chat#readme" className="text-blue-600 p-2 underline mb-8 text-base">
+          github.com/jldec/agents-chat
+        </a>
         <a href="time" className="text-blue-600 p-2 underline mb-8 text-base">
-          Time
+          ⏰
         </a>
       </div>
-      <a href="https://github.com/jldec/agents-chat#readme" className="text-blue-600 p-2 underline mb-8 text-base">
-        github.com/jldec/agents-chat
-      </a>
     </div>
   )
 }
