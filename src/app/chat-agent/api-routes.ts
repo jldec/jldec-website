@@ -1,7 +1,8 @@
 import { env } from 'cloudflare:workers'
 import { nanoid } from 'nanoid'
 import type { Message } from '../shared/ChatStore'
-import { askAI, streamToText } from '@/lib/askAI'
+import { askAI } from '@/lib/askAI'
+import { streamToText } from '@/lib/streamToText'
 
 import { route } from 'rwsdk/router'
 import type { RequestInfo } from 'rwsdk/worker'
