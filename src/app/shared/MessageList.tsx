@@ -17,13 +17,8 @@ export function MessageList({ messages }: { messages: Message[] }) {
             message.role === 'assistant' ? 'bg-gray-100' : 'bg-white'
           )}
           key={message.id}
-        >
-          {message.role === 'assistant' ? (
-            <div dangerouslySetInnerHTML={{ __html: md.render(message.content) }}></div>
-          ) : (
-            message.content
-          )}
-        </div>
+          dangerouslySetInnerHTML={{ __html: md.render(message.content) }}
+        />
       ))}
     </div>
   )
