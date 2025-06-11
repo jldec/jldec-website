@@ -1,6 +1,7 @@
 # Multi-user AI chat with RedwoodSDK RSC and Cloudflare agents
+_Companion-repo for [blog post](https://jldec.me/blog/multi-user-ai-chat-with-redwoodsdk-rsc-and-cloudflare-agents) on jldec.me._
 
-Three implementations of multi-user streaming AI chat -- deployed at https://agents-chat.jldec.workers.dev/.
+Three implementations of multi-user streaming AI chat -- deployed at https://agents-chat.jldec.workers.dev/
 
 1. [RSC Chat](https://agents-chat.jldec.workers.dev/chat-rsc) - sync via [RedwoodSDK realtime websockets](https://docs.rwsdk.com/core/realtime/)
 2. [Agent Chat](https://agents-chat.jldec.workers.dev/chat-agent) - sync via [Cloudflare Agents websockets](https://developers.cloudflare.com/agents/api-reference/websockets/)
