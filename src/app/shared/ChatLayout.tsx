@@ -9,7 +9,7 @@ export function ChatLayout({ title, children }: ChatLayoutProps) {
       <a href="/" className="text-blue-600 underline text-base absolute top-0 right-0 pt-4 pr-3">
         Home
       </a>
-      <h1 className="text-xl font-bold my-2">{title}</h1>
+      <h1 className="text-lg font-bold my-2">{title}</h1>
       <div className="w-full text-left">
         {children}
       </div>
