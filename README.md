@@ -9,6 +9,7 @@ Four implementations of multi-user streaming AI chat -- deployed at https://agen
 4. [TinyBase Chat](https://agents-chat.jldec.workers.dev/chat-tinybase) - sync via [TinyBase websockets](https://tinybase.org/) 
 
 ## First impressions
+- RedwoodSK (RSCs on Cloudflare workers) is very interesting. The upcoming addition of client-side routing (SPA mode) together with Cloudflare cache integration for SSR, would make this stack hard to beat.   
 - All four implementations rely on Cloudflare [durable objects](https://developers.cloudflare.com/durable-objects/#what-are-durable-objects) with websockets. This is great for runtime performance and makes deployment easy. There are no containers to build or servers to manage.
 - React is great for a use case like this where updates are coming from both the server and the client. All four implementations use the same [MessageList](src/app/shared/MessageList.tsx) component.
 
