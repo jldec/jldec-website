@@ -5,7 +5,7 @@ Four implementations of multi-user streaming AI chat -- deployed at https://agen
 
 1. [RSC Chat](https://agents-chat.jldec.workers.dev/chat-rsc) - sync via [RedwoodSDK realtime websockets](https://docs.rwsdk.com/core/realtime/)
 2. [Agent Chat](https://agents-chat.jldec.workers.dev/chat-agent) - sync via [Cloudflare Agents websockets](https://developers.cloudflare.com/agents/api-reference/websockets/)
-3. [Agent SDK Chat](https://agents-chat.jldec.workers.dev/chat-agent-sdk) - uses [AIChatAgent](https://developers.cloudflare.com/agents/api-reference/agents-api/#aichatagent) with [useAgentChat](https://developers.cloudflare.com/agents/api-reference/agents-api/#chat-agent-react-api) hook
+3. [Agent SDK Chat](https://agents-chat.jldec.workers.dev/chat-agent-sdk) - uses [AIChatAgent](https://developers.cloudflare.com/agents/api-reference/agents-api/#aichatagent) with the [useAgentChat](https://developers.cloudflare.com/agents/api-reference/agents-api/#chat-agent-react-api) hook
 4. [TinyBase Chat](https://agents-chat.jldec.workers.dev/chat-tinybase) - sync via [TinyBase websockets](https://tinybase.org/) 
 
 ## First impressions
@@ -24,7 +24,7 @@ Four implementations of multi-user streaming AI chat -- deployed at https://agen
 - Agents can combine both the chat storage and the websocket in one durable object. (TODO)
 
 #### Cloudflare Agents SDK with AIChatAgent
-- The [AIChatAgent](https://developers.cloudflare.com/agents/api-reference/agents-api/#aichatagent) class handles multi-user real-time message sync automatically. This simplifies the implementation compared to handling websockets manually.
+- The [AIChatAgent](https://developers.cloudflare.com/agents/api-reference/agents-api/#aichatagent) class handles multi-user real-time message sync automatically. This simplifies the implementation compared to handling websockets manually. (_investigating [in #23](https://github.com/jldec/agents-chat/issues/23) why not all clients see the streaming_)
 - The SDK abstracts tool calling and supports different LLMs by integrating with Vercel's [AI SDK](https://ai-sdk.dev/docs/introduction).
 - The [useAgentChat](https://developers.cloudflare.com/agents/api-reference/agents-api/#chat-agent-react-api) React hook provides a clean interface for managing chat state and interactions.
 - With React Server Components (RSC), this component needs to be wrapped to prevent server-side rendering since the hook makes assumptions about running in a browser environment. More details in [this PR](https://github.com/jldec/agents-chat/pull/20).
