@@ -1,7 +1,7 @@
 export function Home() {
   return (
     <div className="flex flex-col items-center min-h-screen text-sm">
-      <h1 className="text-xl font-bold my-2">RedwoodSDK minimal RSC demo</h1>
+      <h1 className="text-xl font-bold my-2">RedwoodSDK Agent Chat demo</h1>
       <div className="flex flex-row gap-2">
         <a href="chat-rsc" className="text-blue-600 p-2 hover:underline mb-8 text-base text-center border-gray-200 border-1 shadow-md rounded-md">
           RSC Chat
