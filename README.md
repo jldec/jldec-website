@@ -1,17 +1,18 @@
 # Multi-user AI chat with RedwoodSDK RSC and Cloudflare agents
 _Companion-repo for [blog post](https://jldec.me/blog/multi-user-ai-chat-with-redwoodsdk-rsc-and-cloudflare-agents) on jldec.me._
 
-Four implementations of multi-user streaming AI chat -- deployed at https://agents-chat.jldec.workers.dev/
+Several implementations of multi-user streaming AI chat -- deployed at https://agents-chat.jldec.workers.dev/
 
-1. [RSC Chat](https://agents-chat.jldec.workers.dev/chat-rsc) - sync via [RedwoodSDK realtime websockets](https://docs.rwsdk.com/core/realtime/)
-2. [Agent Chat](https://agents-chat.jldec.workers.dev/chat-agent) - sync via [Cloudflare Agents websockets](https://developers.cloudflare.com/agents/api-reference/websockets/)
-3. [Agent SDK Chat](https://agents-chat.jldec.workers.dev/chat-agent-sdk) - uses [AIChatAgent](https://developers.cloudflare.com/agents/api-reference/agents-api/#aichatagent) with the [useAgentChat](https://developers.cloudflare.com/agents/api-reference/agents-api/#chat-agent-react-api) hook
-4. [TinyBase Chat](https://agents-chat.jldec.workers.dev/chat-tinybase) - sync via [TinyBase websockets](https://tinybase.org/) 
+- [RSC Chat](https://agents-chat.jldec.workers.dev/chat-rsc) - syncs via [RedwoodSDK realtime websockets](https://docs.rwsdk.com/core/realtime/) - stores messages in a separate durable object.
+- [Agent Chat](https://agents-chat.jldec.workers.dev/chat-agent) - syncs via [Cloudflare Agents websockets](https://developers.cloudflare.com/agents/api-reference/websockets/) - stores messages in a separate durable object.
+- [Agent SDK Chat](https://agents-chat.jldec.workers.dev/chat-agent-sdk) - uses [AIChatAgent](https://developers.cloudflare.com/agents/api-reference/agents-api/#aichatagent) with the [useAgentChat](https://developers.cloudflare.com/agents/api-reference/agents-api/#chat-agent-react-api) hook - stores messages in the same (per agent intance) durable object.
+- [TinyBase Chat](https://agents-chat.jldec.workers.dev/chat-tinybase) - syncs via [TinyBase websockets](https://tinybase.org/)
+- [Agent Agent Chat](https://agents-chat.jldec.workers.dev/chat-agent-agent) - More advanced Cloudflare agent with subagents and MCP tool calling (sse only, no auth). Syncs via agent websocket.
 
 ## First impressions
 - RedwoodSDK (RSCs on Cloudflare workers) is very interesting. The upcoming addition of client-side routing (SPA mode) together with Cloudflare cache integration for SSR, would make this stack hard to beat.
-- All four implementations rely on Cloudflare [durable objects](https://developers.cloudflare.com/durable-objects/#what-are-durable-objects) with websockets. This is great for runtime performance and makes deployment easy. There are no containers to build or servers to manage.
-- React is great for a use case like this where updates are coming from both the server and the client. All four implementations use the same [MessageList](src/app/shared/MessageList.tsx) component.
+- All implementations rely on Cloudflare [durable objects](https://developers.cloudflare.com/durable-objects/#what-are-durable-objects) with websockets. This is great for runtime performance and makes deployment easy. There are no containers to build or servers to manage.
+- React is great for a use case like this where updates are coming from both the server and the client. All implementations use the same [MessageList](src/app/shared/MessageList.tsx) component.
 
 #### RedwoodSK realtime RSC
 - Server components are a [succinct](https://github.com/jldec/agents-chat/blob/main/src/app/chat-rsc/ChatRSC.tsx) way to pre-populate JSX with data and then keep clients up to date.
@@ -19,16 +20,21 @@ Four implementations of multi-user streaming AI chat -- deployed at https://agen
 - The scope of the RSC update payload sent to clients may become a problem during streaming, e.g. for pages with a lot of data. Discussion about this in the [rwsdk discord](https://discord.com/channels/679514959968993311/1374715298636238968/1376288266789064734).
 - Server functions are convenient, but should be used with care since they generate HTTP APIs which is where auth/authz is commonly required. See [this take](https://www.youtube.com/watch?v=yD-KK4hiULU) from Jack Herrington for more.
 
-#### Cloudflare Agents websockets
-- Using Cloudflare Agents websockets means that we have [full control](https://github.com/jldec/agents-chat/blob/main/src/app/chat-agent/WebsocketAgent.ts) over the payloads. This allows for nice optimizations e.g. to send partial data during streaming.
+#### Cloudflare Agents raw websockets
+- Using Cloudflare Agents raw websockets gives us [full control](https://github.com/jldec/agents-chat/blob/main/src/app/chat-agent/WebsocketAgent.ts) over the payloads. This allows for nice optimizations e.g. to send partial data during streaming.
 - Rendering chat history on the client via fetch or via websocket makes the initial UX a little janky. (TODO: investigate pre-rendering)
-- Agents can combine both the chat storage and the websocket in one durable object. (TODO)
 
 #### Cloudflare Agents SDK with AIChatAgent
 - [AIChatAgent](https://developers.cloudflare.com/agents/api-reference/agents-api/#aichatagent) handles multi-user real-time message sync over websockets. This simplifies the implementation.
 - The SDK abstracts tool calling and supports different LLMs with Vercel's [AI SDK](https://ai-sdk.dev/docs/introduction).
 - [useAgentChat](https://developers.cloudflare.com/agents/api-reference/agents-api/#chat-agent-react-api) which is based on [ai-sdk useChat](https://ai-sdk.dev/docs/reference/ai-sdk-ui/use-chat#usechat), manages chat UI interactions with react, however only a single client sees the AI streaming reponse (see [#23](https://github.com/jldec/agents-chat/issues/23)).
 - With React Server Components (RSC), this component needs to be wrapped to prevent server-side rendering since the hook makes assumptions about running in a browser environment. More details in [this PR](https://github.com/jldec/agents-chat/pull/20).
+
+#### Agent Agent with subagents and MCP tools
+- MCP tools can be added, removed or listed.
+- A built-in tool can calls [AIChatAgent.saveMessages](https://github.com/cloudflare/agents/blob/398c7f5411f3a63f450007f83db7e3f29b6ed4c2/packages/agents/src/ai-chat-agent.ts#L185) on a named subagent, passing in the new message as if it were coming from a user. The tool waits for the response to finish, (doesn't stream) and then returns the whole response as a string.
+- This makes it possible for the main agent to prompt the subagent.
+- There are also built-in tools for clearing and listing messages.
 
 #### TinyBase sync
 - Synchronization is happening between memory and persistance on every node, and between nodes.
