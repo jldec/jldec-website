@@ -27,7 +27,7 @@ Several implementations of multi-user streaming AI chat -- deployed at https://a
 #### Cloudflare Agents SDK with AIChatAgent
 - [AIChatAgent](https://developers.cloudflare.com/agents/api-reference/agents-api/#aichatagent) handles multi-user real-time message sync over websockets. This simplifies the implementation.
 - The SDK abstracts tool calling and supports different LLMs with Vercel's [AI SDK](https://ai-sdk.dev/docs/introduction).
-- [useAgentChat](https://developers.cloudflare.com/agents/api-reference/agents-api/#chat-agent-react-api) which is based on [ai-sdk useChat](https://ai-sdk.dev/docs/reference/ai-sdk-ui/use-chat#usechat), manages chat UI interactions with react, however only a single client sees the AI streaming reponse (see [#23](https://github.com/jldec/agents-chat/issues/23)).
+- [useAgentChat](https://developers.cloudflare.com/agents/api-reference/agents-api/#chat-agent-react-api) which calls `ai` sdk's [useChat](https://ai-sdk.dev/docs/reference/ai-sdk-ui/use-chat#usechat), manages chat UI interactions with react, however only a single client sees the AI streaming reponse (see [#23](https://github.com/jldec/agents-chat/issues/23)).
 - With React Server Components (RSC), this component needs to be wrapped to prevent server-side rendering since the hook makes assumptions about running in a browser environment. More details in [this PR](https://github.com/jldec/agents-chat/pull/20).
 
 #### Agent Agent with subagents and MCP tools
