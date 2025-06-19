@@ -32,9 +32,10 @@ Several implementations of multi-user streaming AI chat -- deployed at https://a
 
 #### Agent Agent with subagents and MCP tools
 - MCP tools can be added, removed or listed.
-- A built-in tool can calls [AIChatAgent.saveMessages](https://github.com/cloudflare/agents/blob/398c7f5411f3a63f450007f83db7e3f29b6ed4c2/packages/agents/src/ai-chat-agent.ts#L185) on a named subagent, passing in the new message as if it were coming from a user. The tool waits for the response to finish, (doesn't stream) and then returns the whole response as a string.
+- A built-in tool calls [AIChatAgent.saveMessages()](https://github.com/cloudflare/agents/blob/398c7f5411f3a63f450007f83db7e3f29b6ed4c2/packages/agents/src/ai-chat-agent.ts#L185) on a named subagent, passing in a new message, as if it were coming from a user.
 - This makes it possible for the main agent to prompt the subagent.
 - There are also built-in tools for clearing and listing messages.
+- Subagent responses currently don't stream (TODO)
 
 #### TinyBase sync
 - Synchronization is happening between memory and persistance on every node, and between nodes.
