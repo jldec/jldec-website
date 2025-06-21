@@ -10,7 +10,8 @@ Several implementations of multi-user streaming AI chat -- deployed at https://a
 - [Agent Agent Chat](https://agents-chat.jldec.workers.dev/chat-agent-agent) - More advanced Cloudflare agent with subagents and MCP tool calling (sse only, no auth). Syncs via agent websocket.
 
 ## First impressions
-- RedwoodSDK (RSCs on Cloudflare workers) is very interesting. The upcoming addition of client-side routing (SPA mode) together with Cloudflare cache integration for SSR, would make this stack hard to beat.
+- RedwoodSDK (RSCs on Cloudflare workers) is very interesting. The addition of [client-side navigation](https://docs.rwsdk.com/guides/frontend/client-side-nav/) (SPA mode) together with Cloudflare cache integration, will make this stack hard to beat.
+- I was a bit surprised to learn that RSC servers render `use client` components on initial load. This produced errors running the `useChatAgent()` hook from the agents sdk. The rwsdk team was super-responsive helping to debug the issue, and provided a solution to [disable ssr](https://docs.rwsdk.com/reference/sdk-router/#options). More details in [this PR](https://github.com/jldec/agents-chat/pull/20).
 - All implementations rely on Cloudflare [durable objects](https://developers.cloudflare.com/durable-objects/#what-are-durable-objects) with websockets. This is great for runtime performance and makes deployment easy. There are no containers to build or servers to manage.
 - React is great for a use case like this where updates are coming from both the server and the client. All implementations use the same [MessageList](src/app/shared/MessageList.tsx) component.
 
@@ -28,7 +29,6 @@ Several implementations of multi-user streaming AI chat -- deployed at https://a
 - [AIChatAgent](https://developers.cloudflare.com/agents/api-reference/agents-api/#aichatagent) handles multi-user real-time message sync over websockets. This simplifies the implementation.
 - The SDK abstracts tool calling and supports different LLMs with Vercel's [AI SDK](https://ai-sdk.dev/docs/introduction).
 - [useAgentChat](https://developers.cloudflare.com/agents/api-reference/agents-api/#chat-agent-react-api) which calls AI SDK's [useChat](https://ai-sdk.dev/docs/reference/ai-sdk-ui/use-chat#usechat), manages chat UI interactions with react, however only a single client sees the AI streaming reponse (see [#23](https://github.com/jldec/agents-chat/issues/23)).
-- With React Server Components (RSC), this component needs to be wrapped to prevent server-side rendering since the hook makes assumptions about running in a browser environment. More details in [this PR](https://github.com/jldec/agents-chat/pull/20).
 
 #### Agent Agent with subagents and MCP tools
 - MCP tools can be added, removed or listed.
