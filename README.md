@@ -42,7 +42,6 @@ Several implementations of multi-user streaming AI chat -- deployed at https://a
 - This improves the UX once data is persisted on the client and makes it easy to use React hooks listening for database updates.
 - The APIs for [persistence and synchronization](https://github.com/jldec/agents-chat/blob/main/src/app/chat-tinybase/store.ts#L14-L38) feel like they could be consolidated.
 - Since store operations run on the client we have to be extra careful with validation e.g. to deal with  clients being compromized.
-- Localstorage persistence has an [issue](https://github.com/jldec/agents-chat/issues/13) with multiple tabs.
 
 ## Why?
 
