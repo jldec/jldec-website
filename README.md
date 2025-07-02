@@ -46,6 +46,17 @@ Several implementations of multi-user streaming AI chat -- deployed at https://a
 ## Why?
 
 I'm exploring how to build multi-user AI chat because I expect this to become the universal UI for humans and agents to work together.
+
+Here are just a few of the challenges:
+
+- Live-streaming AI responses back to multiple connected clients
+- Subagent creation, lifecycle, identity, sub-threads, approvals
+- Conversation persistence, re-use, summaries
+- Tool discovery, selective use, approval flow
+- User identity, auth, authz
+- Long running tasks
+- Notifications
+
 The idea to try 3 architectures came from the same [rwsdk discord](https://discord.com/channels/679514959968993311/1374715298636238968/1376269189802627112) thread.
 
 > ![Screenshot 2025-06-02 at 21 06 37](https://github.com/user-attachments/assets/2545674b-1535-4759-b332-151014bc12ea)
