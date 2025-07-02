@@ -16,5 +16,3 @@ Multi-user streaming AI chats built using RedwoodSDK, Cloudflare Agents, and RSC
 
 ---
 See GitHub [jldec/agents-chat](https://github.com/jldec/agents-chat), or the blog post on [jldec.me](https://jldec.me/blog/multi-user-ai-chat-with-redwoodsdk-rsc-and-cloudflare-agents) for more details.
-
-(c) me.
