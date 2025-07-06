@@ -1,59 +1,27 @@
-# Agent Instructions for agents-chat Project
+# Agent Instructions for rwsdk-website Project
 
-## Project Overview
-This is a Cloudflare Workers/Redwood SDK project for a chat application.
+## Project overview
+This is a Cloudflare Workers RedwoodSDK project for a personal websiteapplication.
 
-## Package Management
+## Package management
 - Use `pnpm` for all package installations
 - Dev dependencies: `pnpm install -D <package>`
 - Regular dependencies: `pnpm install <package>`
 
-## Build Commands
-- Development: `pnpm run dev`
-- Build: `pnpm run build`
-- Deploy: `pnpm run ship`
-- Type checking: `pnpm run types`
+## Build commands
+- Development: `pnpm dev`
+- Build: `pnpm build`
+- Deploy: `pnpm ship`
+- Regenerate worker-configuration.d.ts: `pnpm types`
 
-## Styling & CSS
+## CSS
 - Uses Tailwind CSS v4 with @tailwindcss/vite plugin
-- Main styles in `src/app/styles.css`
-- To add Tailwind plugins, use `@plugin` directive in CSS file instead of creating separate tailwind.config.js
-- Example: `@plugin "@tailwindcss/typography";`
+- Markdown styled with `@plugin "@tailwindcss/typography";`
+- Additional style overrides in `src/app/styles.css`
 
 ## Code Conventions
 - Uses TypeScript
 - React components in `src/app/` directory
 - Shared components in `src/app/shared/`
-- Uses Prettier formatting with:
-  - printWidth: 120
-  - tabWidth: 2
-  - singleQuote: true
-  - no semicolons
-  - no trailing commas
-
-## Libraries Used
-- `markdown-it` for Markdown rendering
-- `nanoid` for ID generation
-- `clsx` and `tailwind-merge` for className utilities
-- `tinybase` for state management
-- `reconnecting-websocket` for WebSocket connections
-
-## Markdown Rendering Pattern
-When rendering markdown content (like assistant messages):
-```tsx
-import markdownit from 'markdown-it'
-
-const md = markdownit({
-  linkify: true
-})
-
-// In component:
-<div dangerouslySetInnerHTML={{ __html: pageData?.html ?? '' }} />
-```
-
-## Project Structure
-- `src/app/` - Main application code
-- `src/app/shared/` - Shared components
-- `src/app/styles.css` - Main stylesheet
-- `public/` - Static assets
-- `dist/` - Build output
+- Uses Prettier formatting as defined in package.json
+- spaces not tabs, tabwidth 2, no semicolons, no trailing commas, line length 120

@@ -1,34 +1,39 @@
-# Multi-user AI Chat with RedwoodSDK RSC and Cloudflare Agents
+# rwsdk-website
+Deploy a RedwoodSDK website on Cloudflare using markdown in GitHub repo.
+No build required once deployed, simply push changes and shift-reload in browser.
 
-This is an experimental project, looking at how to live-stream AI responses back to multiple connected clients. All implementations use Cloudflare durable objects and React Server Components (RSC) with [RedwoodSDK](https://rwsdk.com/).
+### Scripts
+```json
+{
+  "dev": "vite dev --force",
+  "test": "vitest run",
+  "build": "vite build",
+  "preview": "vite build && vite preview",
+  "ship": "vite build && wrangler deploy",
+  "types": "wrangler types --include-runtime false --strict-vars false",
+  "tail": "wrangler tail"
+}
+```
 
-This is a companion repository for a [blog post](https://jldec.me/blog/multi-user-ai-chat-with-redwoodsdk-rsc-and-cloudflare-agents), deployed at https://agents-chat.jldec.me/.
+### Cloudflare setup
 
-### Implementations
-1. **[RSC Chat](https://agents-chat.jldec.me/chat-rsc)** - Uses RedwoodSDK realtime websockets
-2. **[Agent Chat](https://agents-chat.jldec.me/chat-agent)** - Uses Cloudflare Agents websockets with separate durable object storage
-3. **[Agent SDK Chat](https://agents-chat.jldec.me/chat-agent-sdk)** - Uses Cloudflare Agents AIChatAgent with the useAgentChat hook
-4. **[TinyBase Chat](https://agents-chat.jldec.me/chat-tinybase)** - Uses TinyBase websockets
-5. **[Agent Agent Chat](https://agents-chat.jldec.me/chat-agent-agent)** - Advanced Cloudflare agent with subagents and MCP tool calling
+1. Create secrets and configure dev content source in .dev.vars
+  ```txt
+  GH_PAT=<GitHub Personal Access Token with read access to the repo>
+  IMAGE_KEY=<string for signing image URLs - non-critical, just for abuse protection>
+  DEV_CONTENT_DIR<local content directory for dev - defaults to ./content>
+  ```
 
-### Takeaways
+2. Configure secrets and bindings (paste secret when prompted) - requires Cloudflare account
+  ```sh
+  pnpm wrangler secret put GH_PAT
+  pnpm wrangler secret put IMAGE_KEY
+  pnpm wrangler kv namespace create rwsdk-website_PAGEDATA_CACHE
+  pnpm wrangler kv namespace create rwsdk-website_STATIC_CACHE
+  pnpm wrangler r2 bucket create rwsdk-website-images
+  ```
 
-**RedwoodSDK RSC:**
-- Server components provide succinct way to populate JSX and keep clients updated.
-- This makes using react with Cloudflar workers super easy, and simplifies async data loading.
-
-**Cloudflare Agents:**
-- AIChatAgent provides its own websocket protocol for multi-user real-time sync
-- Agents also offer raw websockets give full control over payloads for optimizations
-- Vercel's AI SDK abstracts tool calling and supports different LLMs
-
-**TinyBase:**
-- DB sync engines can improve UX with local-first client-side persistence
-- The approach requires careful validation since database operations run on the client
-
-### Links
-- **Live Demo:** https://agents-chat.jldec.me/
-- **Blog Post:** https://jldec.me/blog/multi-user-ai-chat-with-redwoodsdk-rsc-and-cloudflare-agents
-- **RedwoodSDK Docs:** https://docs.rwsdk.com/
-- **Cloudflare Workers Docs:** https://developers.cloudflare.com/workers/
-- **Cloudflare Agents Docs:** https://developers.cloudflare.com/agents/
+3. wrangler.jsonc
+  - Change worker name
+  - Change GH_OWNER, GH_REPO, GH_BRANCH, GH_PATH
+  - Copy IDs for KV namespaces from previous commands
