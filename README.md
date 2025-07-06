@@ -1,6 +1,6 @@
 # Multi-user AI Chat with RedwoodSDK RSC and Cloudflare Agents
 
-This is an experimental project, lookingd at how to live-stream AI responses back to multiple connected clients. All implementations use Cloudflare durable objects and React Server Components (RSC) with [RedwoodSDK](https://rwsdk.com/).
+This is an experimental project, looking at how to live-stream AI responses back to multiple connected clients. All implementations use Cloudflare durable objects and React Server Components (RSC) with [RedwoodSDK](https://rwsdk.com/).
 
 This is a companion repository for a [blog post](https://jldec.me/blog/multi-user-ai-chat-with-redwoodsdk-rsc-and-cloudflare-agents), deployed at https://agents-chat.jldec.me/.
 
