@@ -1,5 +1,4 @@
 // prettier-ignore
-import { cacheInterrupter, cacheResponse } from './lib/cacheInterrupter'
 import { ChatRSC } from './app/chat-rsc/ChatRSC'
 import { defineApp } from 'rwsdk/worker'
 import { Document } from './app/Document'
@@ -25,9 +24,12 @@ const app = defineApp([
   realtimeRoute(() => env.REALTIME_DURABLE_OBJECT),
   contentMiddleware({ ignore: '/api/' }),
   render(Document, layout(AppLayout, [route('/chat-rsc', ChatRSC)])),
-  render(Document, [route('*', [cacheInterrupter(), contentTheme])])
+  render(Document, [route('*', [contentTheme])])
 ])
 
 export default {
-  fetch: cacheResponse(app.fetch)
+  fetch: app.fetch
 }
+
+// cache disabled - https://github.com/jldec/agents-chat/issues/56
+// import { cacheInterrupter, cacheResponse } from './lib/cacheInterrupter'
