@@ -42,22 +42,22 @@ export function BlogPost() {
         )}
         {dirData?.prev ? (
           <a
-            className="px-[6px] text-gray-400 hover:text-orange-500"
+            className="px-[6px] text-gray-400 hover:text-orange-500 hover:underline decoration-double decoration-2"
             href={dirData.prev.href}
             title={`Prev: ${dirData.prev.text}`}
           >
-            <SquareChevronUp className="h-5" />
+            Prev
           </a>
         ) : (
           ''
         )}
         {dirData?.next ? (
           <a
-            className="px-[6px] text-gray-400 hover:text-orange-500"
+            className="px-[6px] text-gray-400 hover:text-orange-500 hover:underline decoration-double decoration-2"
             href={dirData.next.href}
             title={`Next: ${dirData.next.text}`}
           >
-            <SquareChevronDown className="h-5" />
+            Next
           </a>
         ) : (
           ''
