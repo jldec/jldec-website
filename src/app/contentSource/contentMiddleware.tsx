@@ -42,7 +42,7 @@ export const contentMiddleware = ({ ignore }: contentMiddlewareOptions = {}) => 
     // redirects take precedence over markdown pages
     const redirects = await getRedirects()
     if (pathname in redirects) {
-      return Response.redirect(url.origin + redirects[pathname].redirect + search, redirects[pathname].status)
+      return Response.redirect(new URL(redirects[pathname].redirect + search, url.origin), redirects[pathname].status)
     }
     const pagePaths = await getPagePaths()
     const pageContext: ContentPageContext = {
