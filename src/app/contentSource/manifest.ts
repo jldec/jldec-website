@@ -16,7 +16,6 @@ export function zapManifestCache() {
 
 // Fetch array of rooted file paths from source
 export async function getManifest(noCache: boolean = false) {
-  console.log('getManifest', 'noCache', noCache, 'IS_DEV', IS_DEV, 'VITE_IS_DEV_SERVER', import.meta.env.VITE_IS_DEV_SERVER)
   let manifest: string[] = []
   let source = 'github'
 

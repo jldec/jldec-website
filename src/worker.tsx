@@ -32,4 +32,3 @@ export default {
 }
 
 // cache disabled - https://github.com/jldec/agents-chat/issues/56
-// import { cacheInterrupter, cacheResponse } from './lib/cacheInterrupter'
