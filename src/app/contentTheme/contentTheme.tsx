@@ -7,8 +7,7 @@ import { BlogPost } from './BlogPost'
 
 export async function contentTheme() {
   const pageContext = requestInfo.ctx.pageContext
-  const pageData = pageContext?.pageData
-  if (pageData) {
+  if (pageContext?.pageData) {
     switch (pageContext.pathname) {
       case '/':
         return <Home />
@@ -21,6 +20,7 @@ export async function contentTheme() {
         return <Page />
     }
   } else {
+    console.log('NotFound', pageContext?.pathname)
     requestInfo.response.status = 404
     return <NotFound />
   }
