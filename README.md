@@ -1,6 +1,6 @@
-# rwsdk-website
-Deploy a RedwoodSDK website on Cloudflare using markdown in GitHub repo.
-No build required once deployed, simply push changes and shift-reload in browser.
+# jldec-website
+Project repo for [jldec.me](https://jldec.me)
+Built RedwoodSDK, deployed on Cloudflare workers
 
 ### Scripts
 ```json
