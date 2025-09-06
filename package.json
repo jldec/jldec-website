@@ -18,7 +18,7 @@
     "clsx": "^2.1.1",
     "markdown-it": "^14.1.0",
     "nanoid": "^5.1.5",
-    "rwsdk": "0.3.2",
+    "rwsdk": "0.3.4",
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
