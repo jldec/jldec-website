@@ -2,7 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "jldec-website",
   "main": "src/worker.tsx",
-  "compatibility_date": "2025-05-07",
+  "compatibility_date": "2025-09-06",
   "compatibility_flags": ["nodejs_compat", "nodejs_compat_populate_process_env"],
   "observability": {
     "enabled": true
