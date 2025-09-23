@@ -7,10 +7,7 @@
   "observability": {
     "enabled": true
   },
-  "ai": { "binding": "AI" },
   "vars": {
-    "RWSDK_CHATSTORE": "rwsdk-realtime-chat", // instance name for CHATSTORE_DURABLE_OBJECT
-    "REALTIME_KEY": "rwsdk-realtime-chat", // instance name for rwsdk REALTIME_DURABLE_OBJECT
     "GH_OWNER": "jldec",
     "GH_REPO": "jldec-me",
     "GH_BRANCH": "main",
@@ -18,9 +15,7 @@
     "GH_TEST": ""
   },
   // .dev.vars
-  // pnpm wrangler secret put OPENAI_API_KEY
   // pnpm wrangler secret put GH_PAT
-  // pnpm wrangler secret put IMAGE_KEY
   "kv_namespaces": [
     // pnpm wrangler kv namespace create rwsdk-website_PAGEDATA_CACHE
     {
@@ -31,31 +26,6 @@
     {
       "binding": "STATIC_CACHE",
       "id": "8e5c2099f4174853a65ff4a500c01332"
-    }
-  ],
-  // pnpm wrangler r2 bucket create rwsdk-website-images
-  "r2_buckets": [
-    {
-      "binding": "IMAGES",
-      "bucket_name": "rwsdk-website-images"
-    }
-  ],
-  "durable_objects": {
-    "bindings": [
-      {
-        "name": "REALTIME_DURABLE_OBJECT",
-        "class_name": "RealtimeDurableObject"
-      },
-      {
-        "name": "CHATSTORE_DURABLE_OBJECT",
-        "class_name": "ChatDurableObject"
-      }
-    ]
-  },
-  "migrations": [
-    {
-      "tag": "v1",
-      "new_sqlite_classes": ["RealtimeDurableObject", "ChatDurableObject"]
     }
   ]
 }
