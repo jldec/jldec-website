@@ -5,7 +5,7 @@ import { Splash } from './Splash'
 
 export function ContentLayout({ children }: LayoutProps) {
   return (
-    <div className="max-w-3xl m-auto p-3">
+    <div className="max-w-3xl m-auto p-3 overflow-hidden">
       <Metadata />
       <Menu />
       <Splash />
