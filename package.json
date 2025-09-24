@@ -16,6 +16,7 @@
   "dependencies": {
     "@std/front-matter": "jsr:^1.0.9",
     "markdown-it": "^14.1.0",
+    "markdown-it-anchor": "^9.2.0",
     "nanoid": "^5.1.6",
     "react": "19.2.0-canary-3fb190f7-20250908",
     "react-dom": "19.2.0-canary-3fb190f7-20250908",
