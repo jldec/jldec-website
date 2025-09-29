@@ -22,6 +22,6 @@ export async function contentTheme() {
   } else {
     console.log('NotFound', pageContext?.pathname)
     requestInfo.response.status = 404
-    return <NotFound />
+    return requestInfo.request.method === 'GET' ? <NotFound /> : new Response('Not found', { status: 404 })
   }
 }
