@@ -11,11 +11,25 @@ export type contentMiddlewareOptions = {
   ignore?: string | string[]
 }
 
+function acceptRaw(accept: string | null) {
+  if (!accept) return false
+  accept = accept.toLowerCase()
+
+  const html = accept.indexOf('text/html')
+  const plain = accept.indexOf('text/plain')
+  const markdown = accept.indexOf('text/markdown')
+
+  if (plain === -1 && markdown === -1) return false
+  if (html === -1 || (html > plain && html > markdown)) return true
+  return false
+}
+
 export const contentMiddleware = ({ ignore }: contentMiddlewareOptions = {}) => {
   return async ({ request, ctx }: RequestInfo): Promise<Response | void> => {
     const noCache =
       request.headers.get('cache-control')?.includes('no-cache') || request.headers.get('pragma')?.includes('no-cache')
     const url = new URL(request.url)
+    const prefersRaw = url.searchParams.has('raw') || acceptRaw(request.headers.get('accept'))
     const pathname = url.pathname
     const search = url.search
 
@@ -55,6 +69,11 @@ export const contentMiddleware = ({ ignore }: contentMiddlewareOptions = {}) => 
           : undefined
     }
     if (url.searchParams.has('json')) return Response.json(pageContext)
+    if (prefersRaw)
+      console.log('raw', pathname)
+      return pageContext.pageData?.md
+        ? new Response(pageContext.pageData?.md)
+        : new Response('not found', { status: 404 })
     ctx.pageContext = pageContext
   }
 }
