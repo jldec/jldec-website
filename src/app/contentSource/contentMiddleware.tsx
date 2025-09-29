@@ -70,10 +70,16 @@ export const contentMiddleware = ({ ignore }: contentMiddlewareOptions = {}) => 
     }
     if (url.searchParams.has('json')) return Response.json(pageContext)
     if (prefersRaw) {
-      console.log('raw', pathname)
-      return pageContext.pageData?.md
-        ? new Response(pageContext.pageData?.md)
-        : new Response('not found', { status: 404 })
+      let markdown = ''
+      if (pageContext.pageData?.md) {
+        markdown = pageContext.pageData.md
+      }
+      if (pageContext.pageData?.dir?.length) {
+        markdown +=
+          '\n\n### links\n' +
+          pageContext.pageData.dir.map((entry) => `- [${entry.attrs?.title || entry.path}](${entry.path})`).join('\n')
+      }
+      return markdown ? new Response(markdown) : new Response('not found', { status: 404 })
     }
     ctx.pageContext = pageContext
   }
