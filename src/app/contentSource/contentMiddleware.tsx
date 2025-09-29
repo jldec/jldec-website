@@ -69,11 +69,12 @@ export const contentMiddleware = ({ ignore }: contentMiddlewareOptions = {}) => 
           : undefined
     }
     if (url.searchParams.has('json')) return Response.json(pageContext)
-    if (prefersRaw)
+    if (prefersRaw) {
       console.log('raw', pathname)
       return pageContext.pageData?.md
         ? new Response(pageContext.pageData?.md)
         : new Response('not found', { status: 404 })
+    }
     ctx.pageContext = pageContext
   }
 }
