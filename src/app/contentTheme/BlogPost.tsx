@@ -35,7 +35,7 @@ export function BlogPost() {
         </a> */}
         {dirData?.next ? (
           <a className="px-[6px] text-gray-400 hover:text-orange-500" href={parentPath(pageData?.path || '/')}>
-            <List className="h-5" />
+            <List className="h-[1.4rem]" />
           </a>
         ) : (
           ''
