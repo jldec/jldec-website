@@ -9,7 +9,7 @@ export const Splash = () => {
     <img
       id="splashimage"
       src={splashimage}
-      className="h-[10.5rem] w-full my-6 object-cover cursor-default"
+      className="h-[10.5rem] w-full my-6 object-cover cursor-default rounded"
       alt="splash image"
     />
   )
