@@ -10,6 +10,7 @@ export function ContentLayout({ children }: LayoutProps) {
       <Menu />
       <Splash />
       {children}
+      <script dangerouslySetInnerHTML={{ __html: 'import("/js/image-enlarge.js")' }} type="module"></script>
     </div>
   )
 }
