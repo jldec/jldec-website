@@ -25,7 +25,7 @@ export function BlogPost() {
   return (
     <ContentLayout>
       <p className="flex mb-4">
-        <span className="flex-grow">{longdate}</span>
+        <span className="grow">{longdate}</span>
         {/* <a
           className="px-[6px] text-gray-400 hover:text-orange-500"
           role="button"

@@ -19,7 +19,7 @@ export function BlogList() {
                     className="group flex items-end gap-4 no-underline border-b-[1.5px] border-b-transparent hover:border-b-current"
                     href={d.path}
                   >
-                    <span className="flex-grow">{text}</span>
+                    <span className="grow">{text}</span>
                     <span className="hidden sm:block text-transparent group-hover:text-orange-500">{date}</span>
                   </a>
                 </li>
