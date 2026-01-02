@@ -41,24 +41,30 @@ export function BlogPost() {
           ''
         )}
         {dirData?.prev ? (
-          <a
-            className="px-[6px] text-gray-400 hover:text-orange-500 hover:underline decoration-double decoration-2"
-            href={dirData.prev.href}
-            title={`Prev: ${dirData.prev.text}`}
-          >
-            Prev
-          </a>
+          <>
+            <link rel="prefetch" href={dirData.prev.href} />
+            <a
+              className="px-[6px] text-gray-400 hover:text-orange-500 hover:underline decoration-double decoration-2"
+              href={dirData.prev.href}
+              title={`Prev: ${dirData.prev.text}`}
+            >
+              Prev
+            </a>
+          </>
         ) : (
           ''
         )}
         {dirData?.next ? (
-          <a
-            className="px-[6px] text-gray-400 hover:text-orange-500 hover:underline decoration-double decoration-2"
-            href={dirData.next.href}
-            title={`Next: ${dirData.next.text}`}
-          >
-            Next
-          </a>
+          <>
+            <link rel="prefetch" href={dirData.next.href} />
+            <a
+              className="px-[6px] text-gray-400 hover:text-orange-500 hover:underline decoration-double decoration-2"
+              href={dirData.next.href}
+              title={`Next: ${dirData.next.text}`}
+            >
+              Next
+            </a>
+          </>
         ) : (
           ''
         )}
