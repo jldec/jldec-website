@@ -1,12 +1,12 @@
 import { requestInfo as r } from 'rwsdk/worker'
 import { ContentLayout } from './ContentLayout'
-import { ContentHtml } from './ContentHtml'
+import { Content } from './Content'
 
 export function BlogList() {
   const pageData = r.ctx.pageContext?.pageData
   return (
     <ContentLayout>
-      <ContentHtml />
+      <Content />
       {pageData?.dir ? (
         <div className="prose max-w-none mt-4">
           <ul>

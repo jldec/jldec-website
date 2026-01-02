@@ -1,6 +1,8 @@
-import { requestInfo as r } from 'rwsdk/worker'
+'use client'
+import { ViewTransition } from 'react'
 
-export function ContentHtml() {
-  const pageData = r.ctx.pageContext?.pageData
-  return <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: pageData?.html ?? '[empty page]' }} />
-}
+export const ContentHtml = ({ html }: { html: string | undefined }) => (
+  <ViewTransition>
+    <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: html ?? '[empty page]' }} />
+  </ViewTransition>
+)
