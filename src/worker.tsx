@@ -14,7 +14,7 @@ export type AppContext = {
 
 const app = defineApp([
   contentMiddleware({ ignore: '/api/' }),
-  render(Document, [route('/', [contentTheme]), route('*', [contentTheme])])
+  render(Document, [route('*', [contentTheme])])
 ])
 
 export default {

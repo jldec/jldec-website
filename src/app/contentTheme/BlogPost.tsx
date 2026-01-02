@@ -42,7 +42,7 @@ export function BlogPost() {
         )}
         {dirData?.prev ? (
           <>
-            <link rel="prefetch" href={dirData.prev.href} />
+            <link rel="x-prefetch" href={dirData.prev.href} />
             <a
               className="px-[6px] text-gray-400 hover:text-orange-500 hover:underline decoration-double decoration-2"
               href={dirData.prev.href}
@@ -56,7 +56,7 @@ export function BlogPost() {
         )}
         {dirData?.next ? (
           <>
-            <link rel="prefetch" href={dirData.next.href} />
+            <link rel="x-prefetch" href={dirData.next.href} />
             <a
               className="px-[6px] text-gray-400 hover:text-orange-500 hover:underline decoration-double decoration-2"
               href={dirData.next.href}
