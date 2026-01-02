@@ -18,9 +18,9 @@
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.0",
     "nanoid": "^5.1.6",
-    "react": "~19.2.3",
-    "react-dom": "~19.2.3",
-    "react-server-dom-webpack": "~19.2.3",
+    "react": "19.3.0-canary-65eec428-20251218",
+    "react-dom": "19.3.0-canary-65eec428-20251218",
+    "react-server-dom-webpack": "19.3.0-canary-65eec428-20251218",
     "rwsdk": "1.0.0-beta.45"
   },
   "devDependencies": {

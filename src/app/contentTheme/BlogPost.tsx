@@ -1,7 +1,7 @@
 import { requestInfo as r } from 'rwsdk/worker'
 import { ContentLayout } from './ContentLayout'
 import { List, SquareChevronUp, SquareChevronDown } from './icons'
-import { ContentHtml } from './ContentHtml'
+import { Content } from './Content'
 
 function parentPath(path: string) {
   return path.split('/').slice(0, -1).join('/') || '/'
@@ -27,14 +27,14 @@ export function BlogPost() {
       <p className="flex mb-4">
         <span className="grow">{longdate}</span>
         {/* <a
-          className="px-[6px] text-gray-400 hover:text-orange-500"
+          className="px-1.5 text-gray-400 hover:text-orange-500"
           role="button"
           onClick={() => document.getElementById('chat-icon')?.click()}
         >
           Ask AI
         </a> */}
         {dirData?.next ? (
-          <a className="px-[6px] text-gray-400 hover:text-orange-500" href={parentPath(pageData?.path || '/')}>
+          <a className="px-1.5 text-gray-400 hover:text-orange-500" href={parentPath(pageData?.path || '/')}>
             <List className="h-[1.4rem]" />
           </a>
         ) : (
@@ -44,7 +44,7 @@ export function BlogPost() {
           <>
             <link rel="x-prefetch" href={dirData.prev.href} />
             <a
-              className="px-[6px] text-gray-400 hover:text-orange-500 hover:underline decoration-double decoration-2"
+              className="px-1.5 text-gray-400 hover:text-orange-500 hover:underline decoration-double decoration-2"
               href={dirData.prev.href}
               title={`Prev: ${dirData.prev.text}`}
             >
@@ -58,7 +58,7 @@ export function BlogPost() {
           <>
             <link rel="x-prefetch" href={dirData.next.href} />
             <a
-              className="px-[6px] text-gray-400 hover:text-orange-500 hover:underline decoration-double decoration-2"
+              className="px-1.5 text-gray-400 hover:text-orange-500 hover:underline decoration-double decoration-2"
               href={dirData.next.href}
               title={`Next: ${dirData.next.text}`}
             >
@@ -69,7 +69,7 @@ export function BlogPost() {
           ''
         )}
       </p>
-      <ContentHtml />
+      <Content />
     </ContentLayout>
   )
 }

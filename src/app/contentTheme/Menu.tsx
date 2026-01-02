@@ -7,16 +7,20 @@ export const Menu = () => {
   if (!siteData) return null
   return (
     <nav className="flex flex-wrap mb-4">
-      {siteData?.navlinks?.map((link, index) => <MenuLink key={index} link={link} />)}
+      {siteData?.navlinks?.map((link, index) => (
+        <MenuLink key={index} link={link} />
+      ))}
       <span className="grow"></span>
-      {siteData?.sociallinks?.map((link, index) => <MenuLink key={index} link={link} />)}
+      {siteData?.sociallinks?.map((link, index) => (
+        <MenuLink key={index} link={link} />
+      ))}
     </nav>
   )
 }
 
 function MenuLink({ link }: { link: Navlink }) {
   return (
-    <a className="px-[6px]" href={link.href} aria-label={link.text}>
+    <a className="px-1.5" href={link.href} aria-label={link.text}>
       {link.icon
         ? (frontmatterIcons[link.icon as keyof typeof frontmatterIcons] ?? frontmatterIcons['default'])({
             name: link.icon,
