@@ -1,4 +1,3 @@
-'use client'
 import { ViewTransition } from 'react'
 
 export const ContentHtml = ({ html }: { html: string | undefined }) => (
