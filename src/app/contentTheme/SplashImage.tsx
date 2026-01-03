@@ -1,4 +1,3 @@
-'use client'
 import { ViewTransition } from 'react'
 
 export const SplashImage = ({ src }: { src: string }) => (
