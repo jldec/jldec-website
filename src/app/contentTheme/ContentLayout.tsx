@@ -8,8 +8,11 @@ import { Splash } from './Splash'
 export function ContentLayout({ children }: LayoutProps) {
   const dbg = new URL(r.request.url).searchParams.get('dbg') !== null
   const pageContext = r.ctx.pageContext
+  const preloadImage =
+    pageContext?.pageData?.dir?.[0]?.attrs?.splash?.image || pageContext?.pageData?.dir?.[0]?.next?.image
   return (
     <div className="max-w-3xl m-auto py-3 px-3 lg:px-0 overflow-hidden">
+      {preloadImage ? <link rel="preload" href={preloadImage} as="image" /> : null}
       <Metadata />
       <Menu />
       <ViewTransition>
