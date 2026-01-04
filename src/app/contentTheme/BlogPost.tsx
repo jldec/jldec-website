@@ -43,6 +43,7 @@ export function BlogPost() {
         {dirData?.prev ? (
           <>
             <link rel="x-prefetch" href={dirData.prev.href} />
+            {dirData.prev.image ? <link rel="preload" href={dirData.prev.image} as="image" /> : null}
             <a
               className="px-1.5 text-gray-400 hover:text-orange-500 hover:underline decoration-double decoration-2"
               href={dirData.prev.href}
@@ -57,6 +58,7 @@ export function BlogPost() {
         {dirData?.next ? (
           <>
             <link rel="x-prefetch" href={dirData.next.href} />
+            {dirData.next.image ? <link rel="preload" href={dirData.next.image} as="image" /> : null}
             <a
               className="px-1.5 text-gray-400 hover:text-orange-500 hover:underline decoration-double decoration-2"
               href={dirData.next.href}

@@ -40,7 +40,8 @@ export async function getDirData(dirPath: string, sortBy?: string): Promise<DirD
 function linkify(d: DirData): Navlink {
   return {
     href: d.path,
-    text: d.attrs?.title ?? ''
+    text: d.attrs?.title ?? '',
+    image: d.attrs?.splash?.image
   }
 }
 
