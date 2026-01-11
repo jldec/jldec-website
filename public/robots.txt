@@ -1,3 +1,4 @@
 user-agent: *
 allow: /
 disallow: /private/
+disallow: /resume

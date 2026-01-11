@@ -20,11 +20,15 @@ export const Menu = () => {
 
 function MenuLink({ link }: { link: Navlink }) {
   return (
-    <a className="px-1.5" href={link.href} aria-label={link.text}>
+    <a
+      className="px-1.5 hover:text-orange-500 transition-colors duration-200 ease-in-out hover:underline"
+      href={link.href}
+      aria-label={link.text}
+    >
       {link.icon
         ? (frontmatterIcons[link.icon as keyof typeof frontmatterIcons] ?? frontmatterIcons['default'])({
             name: link.icon,
-            className: 'h-5 hover:text-orange-500 transition-colors duration-200 ease-in-out'
+            className: 'h-5'
           })
         : link.text}
     </a>
