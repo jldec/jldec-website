@@ -20,14 +20,12 @@ Built RedwoodSDK, deployed on Cloudflare workers
 1. Create secrets and configure dev content source in .dev.vars
   ```txt
   GH_PAT=<GitHub Personal Access Token with read access to the repo>
-  IMAGE_KEY=<string for signing image URLs - non-critical, just for abuse protection>
   DEV_CONTENT_DIR<local content directory for dev - defaults to ./content>
   ```
 
 2. Configure secrets and bindings (paste secret when prompted) - requires Cloudflare account
   ```sh
   pnpm wrangler secret put GH_PAT
-  pnpm wrangler secret put IMAGE_KEY
   pnpm wrangler kv namespace create rwsdk-website_PAGEDATA_CACHE
   pnpm wrangler kv namespace create rwsdk-website_STATIC_CACHE
   pnpm wrangler r2 bucket create rwsdk-website-images
