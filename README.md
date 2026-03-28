@@ -1,6 +1,6 @@
 # jldec-website
 Project repo for [jldec.me](https://jldec.me)
-Built RedwoodSDK, deployed on Cloudflare workers
+Built with RedwoodSDK, deployed on Cloudflare workers
 
 ### Scripts
 ```json
